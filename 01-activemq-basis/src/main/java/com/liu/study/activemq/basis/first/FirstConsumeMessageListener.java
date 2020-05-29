@@ -8,7 +8,6 @@ import javax.jms.MessageListener;
 
 /**
  * @desc
- *
  * @author Liuweian
  * @version 1.0.0
  * @createTime 2020/4/23 14:58

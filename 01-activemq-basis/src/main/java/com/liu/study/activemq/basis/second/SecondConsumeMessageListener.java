@@ -8,8 +8,7 @@ import javax.jms.Message;
 import javax.jms.MessageListener;
 
 /**
- * @desc
- *
+ * @desc 消费信息监听器
  * @author Liuweian
  * @version 1.0.0
  * @createTime 2020/4/23 14:58
