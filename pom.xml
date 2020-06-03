@@ -9,6 +9,7 @@
     <packaging>pom</packaging>
 
     <modules>
+        <module>00-activemq-common</module>
         <module>01-activemq-basis</module>
         <module>02-activemq-question</module>
         <module>03-activemq-topic</module>
