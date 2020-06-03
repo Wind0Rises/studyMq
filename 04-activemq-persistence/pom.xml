@@ -1,22 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.liu.study.mq</groupId>
         <artifactId>study-mq-parent</artifactId>
+        <groupId>com.liu.study.mq</groupId>
         <version>1.0.0-SNAPSHOT</version>
-        <relativePath>../pom.xml</relativePath>
     </parent>
 
     <groupId>com.liu.study.activemq</groupId>
-    <artifactId>01-activemq-basis</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <artifactId>04-activemq-persistence</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
 
-    <name>01-activemq-basis</name>
+    <name>04-activemq-persistence</name>
     <url>http://www.example.com</url>
+
 
     <dependencies>
         <dependency>
@@ -25,13 +24,6 @@
             <version>4.11</version>
             <scope>test</scope>
         </dependency>
-
-        <!-- 包含全部的activemq内容  -->
-        <!--<dependency>
-            <groupId>org.apache.activemq</groupId>
-            <artifactId>activemq-all</artifactId>
-            <version>5.15.10</version>
-        </dependency>-->
 
         <dependency>
             <groupId>com.liu.study.activemq</groupId>

@@ -1,7 +1,7 @@
 package com.liu.study.activemq.basis.second;
 
-import com.liu.study.activemq.basis.CommonConstants;
-import com.liu.study.activemq.basis.MessageUtils;
+import com.liu.study.activemq.common.CommonConstants;
+import com.liu.study.activemq.common.MessageUtils;
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

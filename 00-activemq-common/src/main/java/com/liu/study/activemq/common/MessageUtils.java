@@ -1,4 +1,4 @@
-package com.liu.study.activemq.basis;
+package com.liu.study.activemq.common;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

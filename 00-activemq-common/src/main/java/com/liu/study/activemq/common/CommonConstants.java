@@ -1,4 +1,4 @@
-package com.liu.study.activemq.basis;
+package com.liu.study.activemq.common;
 
 /**
  * @desc 常量类。
@@ -19,5 +19,9 @@ public class CommonConstants {
     public static final String SECOND_QUEUE_TRANSACTION_NAME = "queue_second_no_transaction";
 
     public static final String SECOND_QUEUE_NON_TRANSACTION_NAME = "queue_second_no_transaction";
+
+    public static final String SECOND_QUEUE_NON_TRANSACTION_NAME_ASYNC = "queue_second_no_transaction_async";
+
+    public static final String FIRST_TOPIC_NAME = "first_topic";
 
 }
