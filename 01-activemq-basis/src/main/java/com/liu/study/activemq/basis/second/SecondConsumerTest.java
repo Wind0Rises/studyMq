@@ -21,7 +21,7 @@ public class SecondConsumerTest {
      *         false            CLIENT_ACKNOWLEDGE              -->     可以
      *         false            DUPS_OK_ACKNOWLEDGE             -->     可以
      *     ###################################################################
-     *         true             SESSION_TRANSACTED              -->     可以
+     *         true             SESSION_TRANSACTED              -->     可以（开启事务有且只有这一种模式）
      *         true             AUTO_ACKNOWLEDGE                -->     不使用
      *         true             CLIENT_ACKNOWLEDGE              -->     不使用
      *         true             DUPS_OK_ACKNOWLEDGE             -->     不使用
