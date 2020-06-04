@@ -16,7 +16,7 @@ public class CommonConstants {
 
     public static final String FIRST_QUEUE_NAME = "queue_first";
 
-    public static final String SECOND_QUEUE_TRANSACTION_NAME = "queue_second_no_transaction";
+    public static final String SECOND_QUEUE_TRANSACTION_NAME = "queue_second_transaction";
 
     public static final String SECOND_QUEUE_NON_TRANSACTION_NAME = "queue_second_no_transaction";
 
