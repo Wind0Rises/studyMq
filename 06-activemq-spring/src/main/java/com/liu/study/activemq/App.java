@@ -1,4 +1,4 @@
-package com.liu.study.mq;
+package com.liu.study.activemq;
 
 /**
  * Hello world!

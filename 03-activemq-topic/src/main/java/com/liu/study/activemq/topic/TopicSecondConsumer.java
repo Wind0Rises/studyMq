@@ -1,14 +1,17 @@
 package com.liu.study.activemq.topic;
 
-import com.liu.study.activemq.CommonConstants;
+import com.liu.study.activemq.common.CommonConstants;
 import org.apache.activemq.ActiveMQConnection;
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.activemq.ActiveMQMessageConsumer;
 import org.apache.activemq.ActiveMQSession;
-import org.apache.activemq.command.ActiveMQMessage;
 import org.apache.activemq.command.ActiveMQTextMessage;
 
-import javax.jms.*;
+import javax.jms.Destination;
+import javax.jms.JMSException;
+import javax.jms.Message;
+import javax.jms.Session;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @desc
@@ -30,8 +33,12 @@ public class TopicSecondConsumer {
 
             try {
                 System.out.println("==============>> Topic Second Consumer: " + ((ActiveMQTextMessage) message).getText());
+                TimeUnit.SECONDS.sleep(30);
                 message.acknowledge();
+                System.out.println("==============>> 确认成功");
             } catch (JMSException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         });

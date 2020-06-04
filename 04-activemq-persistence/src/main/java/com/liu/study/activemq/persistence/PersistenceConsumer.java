@@ -13,6 +13,8 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * @desc
+ *  TODO: 尝试数据库等持久化操作。
+ *
  * @author Liuweian
  * @version 1.0.0
  * @createTime 2020/6/3 15:10
@@ -54,6 +56,9 @@ public class PersistenceConsumer {
         }
     }
 
+    /**
+     * 使用持久化发生消息，如果broker宕机了以后，未消费的消息会进入未出队中。
+     */
     public static void main(String[] args) throws Exception {
         new PersistenceConsumer().producer();
     }

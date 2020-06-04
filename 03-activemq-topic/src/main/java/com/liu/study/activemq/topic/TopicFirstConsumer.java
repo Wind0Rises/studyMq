@@ -33,6 +33,7 @@ public class TopicFirstConsumer {
             try {
                 System.out.println("==============>> Topic First Consumer: " + ((ActiveMQTextMessage) message).getText());
                 message.acknowledge();
+                System.out.println("==============>> 确认成功");
             } catch (JMSException e) {
                 e.printStackTrace();
             }
