@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * @desc  无法保证每条数据都被消费者消费。
- *
+ *        如果一个消息如果被多个消费者消息，就会出队的消息，就是消费者 * 消息数。
  *
  * @author Liuweian
  * @version 1.0.0
@@ -56,7 +56,7 @@ public class TopicCustomProducer {
                 }
             });
 
-            TimeUnit.SECONDS.sleep(10);
+            TimeUnit.SECONDS.sleep(1000);
         }
     }
 
