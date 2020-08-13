@@ -43,6 +43,9 @@ public class SecondAsyncProducer {
             producer.send(message, new SendCallback() {
                 @Override
                 public void onSuccess(SendResult sendResult) {
+                    /**
+                     * 消息发送broker成功以后回调。sendResult发送结果。
+                     */
                     System.out.printf("%-10d OK %s %n", index, sendResult.getMsgId());
                 }
 
