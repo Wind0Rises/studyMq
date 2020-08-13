@@ -15,6 +15,13 @@ import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
+ * 事务模式--消息发送者
+ *
+ * 注意：事务是不支持延迟和批量发送的。
+ *
+ * 好的博客：
+ *      https://www.cnblogs.com/huangying2124/p/11702761.html
+ *
  * @author lwa
  * @version 1.0.0
  * @createTime 2020/8/12 13:06
@@ -65,10 +72,10 @@ public class TransactionProducer {
                 System.out.println("=================  进行下单操作  ====================");
 
 
-                if (order.getStatus() % 5 == 1) {
+                if (order.getStatus() % 6 == 1) {
                     System.out.printf("订单号：%s，本地事务处理【成功】，提交事务\n", order.toString());
                     return LocalTransactionState.COMMIT_MESSAGE;
-                } if (order.getStatus() % 5 == 2) {
+                } if (order.getStatus() % 6 == 2) {
                     System.out.printf("订单号：%s，本地事务处理【回滚】，回滚事务\n", order.toString());
                     return LocalTransactionState.ROLLBACK_MESSAGE;
                 }
@@ -81,6 +88,8 @@ public class TransactionProducer {
             /**
              * 当half发送没有相应的时候，broker将发送检查消息去检查transaction的状态，这个方法将
              * 被调用获取本地的事务状态。
+             *
+             * 尝试15次后进入死信队列。
              */
             @Override
             public LocalTransactionState checkLocalTransaction(MessageExt msg) {
@@ -90,7 +99,7 @@ public class TransactionProducer {
 
                 Integer status = localTrans.get(order.getOrderNo());
                 if (null != status) {
-                    switch (status % 5) {
+                    switch (status % 6) {
                         case 3:
                             if (set.contains(status)) {
                                 synchronized (object) {
@@ -112,6 +121,11 @@ public class TransactionProducer {
                         case 4:
                             System.out.printf("checkLocalTransaction----订单号：%s，commit\n", order.getOrderNo());
                             return LocalTransactionState.COMMIT_MESSAGE;
+
+                        case 5:
+                            System.out.printf("checkLocalTransaction----订单号：%s，unknow\n", order.getOrderNo());
+                            return LocalTransactionState.UNKNOW;
+
                         case 0:
                             System.out.printf("checkLocalTransaction----订单号：%s，rollback\n", order.getOrderNo());
                             return LocalTransactionState.ROLLBACK_MESSAGE;
