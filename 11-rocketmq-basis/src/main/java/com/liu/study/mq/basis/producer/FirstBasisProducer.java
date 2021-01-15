@@ -34,7 +34,7 @@ public class FirstBasisProducer {
             String message = scanner.nextLine();
 
             // 04、创建消息。
-            Message msg = new Message(CommonConstants.FIRST_TOPIC, message.getBytes());
+            Message msg = new Message(CommonConstants.FIRST_TOPIC, null, message.getBytes());
 
 
             SendResult sendResult = producer.send(msg);
