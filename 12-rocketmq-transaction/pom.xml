@@ -9,9 +9,9 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>12-rocket-transaction</artifactId>
+    <artifactId>12-rocketmq-transaction</artifactId>
 
-    <name>12-rocket-transaction</name>
+    <name>12-rocketmq-transaction</name>
     <url>http://www.example.com</url>
 
     <properties>

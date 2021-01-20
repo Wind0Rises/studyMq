@@ -18,9 +18,10 @@
         <module>06-activemq-spring</module>
         <module>10-rocketmq-common</module>
         <module>11-rocketmq-basis</module>
+        <module>12-rocketmq-transaction</module>
+        <module>13-rocketmq-application</module>
         <module>20-kafka-common</module>
         <module>21-kafka-basis</module>
-        <module>12-rocket-transaction</module>
     </modules>
 
     <dependencies>
