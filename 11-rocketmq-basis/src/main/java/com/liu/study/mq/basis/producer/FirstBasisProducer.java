@@ -34,10 +34,21 @@ public class FirstBasisProducer {
             String message = scanner.nextLine();
 
             // 04、创建消息。
-            Message msg = new Message(CommonConstants.FIRST_TOPIC, null, message.getBytes());
+            Message msg = new Message(CommonConstants.FIRST_TOPIC, "12", message.getBytes());
 
+            /**
+             * 设置延时等级3,这个消息将在10s之后发送(现在只支持固定的几个时间,详看delayTimeLevel)
+             */
+            // msg.setDelayTimeLevel(3);
 
             SendResult sendResult = producer.send(msg);
+
+            /**
+             * 发送单向消息，没有任何返回结果。
+             */
+            // producer.sendOneway(msg);
+
+
 
             System.out.printf("%s%n", sendResult);
         }

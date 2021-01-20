@@ -19,12 +19,12 @@ public class BasisConsumerSpecialTag {
 
     public static void main(String[] args) throws Exception {
         // 01、创建消息生产者
-        DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("test_group");
+        DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("test_group_2");
 
         // 02、添加namespace
         consumer.setNamesrvAddr("localhost:9876");
 
-        consumer.subscribe(CommonConstants.FIRST_TOPIC, "lia || *");
+        consumer.subscribe(CommonConstants.FIRST_TOPIC, "12");
 
         // 04、添加监听器。
         consumer.registerMessageListener(new MessageListenerConcurrently() {

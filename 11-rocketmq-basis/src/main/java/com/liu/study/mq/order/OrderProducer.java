@@ -5,8 +5,10 @@ import org.apache.rocketmq.client.producer.MessageQueueSelector;
 import org.apache.rocketmq.client.producer.SendResult;
 import org.apache.rocketmq.common.message.Message;
 import org.apache.rocketmq.common.message.MessageQueue;
-import org.apache.rocketmq.remoting.common.RemotingHelper;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -18,32 +20,134 @@ import java.util.List;
 public class OrderProducer {
 
     public static void main(String[] args) throws Exception {
-        DefaultMQProducer producer = new DefaultMQProducer("test_group");
+        DefaultMQProducer producer = new DefaultMQProducer("please_rename_unique_group_name");
 
         producer.setNamesrvAddr("127.0.0.1:9876");
 
         producer.start();
 
-        String[] tags = new String[]{"创建订单", "支付", "发货", "收货", "五星好评"};
+        String[] tags = new String[]{"TagA", "TagC", "TagD"};
 
-        for (int i = 5; i < 25; i++) {
-            int orderId = i / 5;
+        // 订单列表
+        List<OrderStep> orderList = new OrderProducer().buildOrders();
 
-            Message message = new Message("order_topic", tags[i % tags.length], "KEY" + i,
-                    ("OrderNo：" + orderId + "---" + tags[i % tags.length]).getBytes(RemotingHelper.DEFAULT_CHARSET));
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String dateStr = sdf.format(date);
+        for (int i = 0; i < 10; i++) {
+            // 构建消息。
+            String body = dateStr + " Hello RocketMQ " + orderList.get(i);
+            Message msg = new Message("TopicTest", tags[i % tags.length], "KEY" + i, body.getBytes());
 
-            System.out.println("------------------------" + new String(message.getBody(), "UTF-8"));
-            SendResult sendResult = producer.send(message, (mqs, msg, arg) -> {
-                // 这个时候arg == orderId
-                Integer id = (Integer) arg;
-                int index = id % mqs.size();
-                return mqs.get(index);
-            }, orderId);
-
-            System.out.printf("%s%n", sendResult);
+            producer.send(msg, new MessageQueueSelector() {
+                /**
+                 * 确定消息使用哪一个MessageQueue
+                 * @param mqs 队列的集合
+                 * @param msg 消息
+                 * @param arg = orderList.get(i).getOrderId()
+                 * @return
+                 */
+                @Override
+                public MessageQueue select(List<MessageQueue> mqs, Message msg, Object arg) {
+                    Long id = (Long) arg;
+                    long index = id % mqs.size();
+                    return mqs.get((int) index);
+                }
+            }, orderList.get(i).getOrderId());
         }
 
         producer.shutdown();
+    }
+
+    /**
+     * 订单的步骤
+     */
+    private static class OrderStep {
+        private long orderId;
+        private String desc;
+
+        public long getOrderId() {
+            return orderId;
+        }
+
+        public void setOrderId(long orderId) {
+            this.orderId = orderId;
+        }
+
+        public String getDesc() {
+            return desc;
+        }
+
+        public void setDesc(String desc) {
+            this.desc = desc;
+        }
+
+        @Override
+        public String toString() {
+            return "OrderStep{" +
+                    "orderId=" + orderId +
+                    ", desc='" + desc + '\'' +
+                    '}';
+        }
+    }
+
+    /**
+     * 生成模拟订单数据
+     */
+    private List<OrderStep> buildOrders() {
+        List<OrderStep> orderList = new ArrayList<OrderStep>();
+
+        OrderStep orderDemo = new OrderStep();
+        orderDemo.setOrderId(15103111039L);
+        orderDemo.setDesc("创建");
+        orderList.add(orderDemo);
+
+        orderDemo = new OrderStep();
+        orderDemo.setOrderId(15103111065L);
+        orderDemo.setDesc("创建");
+        orderList.add(orderDemo);
+
+        orderDemo = new OrderStep();
+        orderDemo.setOrderId(15103111039L);
+        orderDemo.setDesc("付款");
+        orderList.add(orderDemo);
+
+        orderDemo = new OrderStep();
+        orderDemo.setOrderId(15103117235L);
+        orderDemo.setDesc("创建");
+        orderList.add(orderDemo);
+
+        orderDemo = new OrderStep();
+        orderDemo.setOrderId(15103111065L);
+        orderDemo.setDesc("付款");
+        orderList.add(orderDemo);
+
+        orderDemo = new OrderStep();
+        orderDemo.setOrderId(15103117235L);
+        orderDemo.setDesc("付款");
+        orderList.add(orderDemo);
+
+        orderDemo = new OrderStep();
+        orderDemo.setOrderId(15103111065L);
+        orderDemo.setDesc("完成");
+        orderList.add(orderDemo);
+
+        orderDemo = new OrderStep();
+        orderDemo.setOrderId(15103111039L);
+        orderDemo.setDesc("推送");
+        orderList.add(orderDemo);
+
+        orderDemo = new OrderStep();
+        orderDemo.setOrderId(15103117235L);
+        orderDemo.setDesc("完成");
+        orderList.add(orderDemo);
+
+        orderDemo = new OrderStep();
+        orderDemo.setOrderId(15103111039L);
+        orderDemo.setDesc("完成");
+        orderList.add(orderDemo);
+
+        return orderList;
     }
 
 }

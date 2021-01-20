@@ -1,16 +1,17 @@
 package com.liu.study.mq.filter;
 
-import com.google.common.collect.Lists;
 import com.liu.study.mq.common.utils.DateUtils;
 import org.apache.rocketmq.client.producer.DefaultMQProducer;
 import org.apache.rocketmq.common.message.Message;
 
 import java.util.Date;
-import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
-import java.util.stream.IntStream;
 
 /**
+ *
+ * 通过{@link Message#putProperty(name, value)}方法进行操作。相对于使用name这个字段进行判断。
+ *
  * @author lwa
  * @version 1.0.0
  * @createTime 2020/8/11 16:50
@@ -28,17 +29,18 @@ public class FilterProducer {
 
             System.out.printf("输入信息为：");
 
-
-            IntStream.range(0, 10);
-
             String inputMessage = scanner.nextLine();
 
-            Message message = new Message("test_filter", (inputMessage + "  发送时间：" + DateUtils.parseDateToString(new Date())).getBytes());
+            int value = new Random().nextInt(10);
 
+            System.out.println("输入的信息为：" + inputMessage + value);
 
+            Message message = new Message("filter-topic", "*",
+                    (inputMessage + "  发送时间：" + DateUtils.parseDateToString(new Date()) + "   " + value).getBytes());
+
+            message.putUserProperty("column", String.valueOf(value));
 
             producer.send(message);
-
         }
     }
 }

@@ -17,9 +17,16 @@ import java.util.List;
  */
 public class BasisConsumer {
 
+
+    /**
+     * 消费者等待传入订阅消息。 DefaultMQPushConsumer
+     *
+     * @param args
+     * @throws Exception
+     */
     public static void main(String[] args) throws Exception {
         // 01、创建消息生产者
-        DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("test_group");
+        DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("test_group_1");
 
         // 02、添加namespace
         consumer.setNamesrvAddr("localhost:9876");
