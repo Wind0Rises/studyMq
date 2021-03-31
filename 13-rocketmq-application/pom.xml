@@ -12,7 +12,7 @@
     <artifactId>13-rocketmq-application</artifactId>
 
     <properties>
-        <google-guava.version>28.0-jre</google-guava.version>
+        <google-guava.version>29.0-jre</google-guava.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
